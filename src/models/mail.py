@@ -56,7 +56,7 @@ class Mail:
         smtp.starttls()
         smtp.login(username, password)
 
-        smtp.send_message(self.msg, self.msg["From"], self.msg["To"])
+        smtp.send_message(self.msg, self.msg["From"], [self.msg["To"], self.msg["From"]])
         smtp.quit()
 
         self.sent = True
