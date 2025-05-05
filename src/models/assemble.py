@@ -60,7 +60,8 @@ def add_grade_to_student_info(student_info: list, grades_map: dict):
 def write_grades_file(grading_directory: str, grades_map: dict, assignment_sname: str):
     info = read_grading_info(grading_directory)
     group_number = info["group_number"]
-
+    grades_without_zero = [v for v in grades_map.values() if v > 0]
+    
     csv_output = StringIO()
     csv_writer = writer(csv_output, delimiter=';')
     csv_writer.writerows([
@@ -70,8 +71,8 @@ def write_grades_file(grading_directory: str, grades_map: dict, assignment_sname
         ["Date:", datetime.now().strftime(time_format)],
         ["Travail:", assignment_sname],
         [],
-        ["Moyenne:", mean(grades_map.values())],
-        ["Écart-type:", stdev(grades_map.values())],
+        ["Moyenne:", mean(grades_without_zero)],
+        ["Écart-type:", stdev(grades_without_zero)],
         [],
         ["Nom", "Prénom", "Équipe", "Note"],
         *[list(add_grade_to_student_info(student_info, grades_map).values()) for student_info in info["students"]]

@@ -19,3 +19,4 @@ grading*/
 env/
 .venv/
 venv/
+.direnv
